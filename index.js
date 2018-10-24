@@ -85,7 +85,7 @@ ${bootstrapRowBegin}`;
 
 		// get the current property value
 		// if we have an object path then add it here else just use the prop value
-		const keyValue = json[key];
+		const keyValue = _convertKey(json[key]);
 		const valueTemplate = objectPath ? `${objectPath}.${keyValue}` : keyValue;
 
 		// add the current property value - create col, add label then value, close col
@@ -107,4 +107,38 @@ ${bootstrapRowEnd}
 `;
 	
 	return bootstrapHtml;
+}
+
+/**
+ * replaces camel case and snake case to regular sentence form
+ * @param {String} key the key to convert
+ * @return {String} 
+ */
+function _convertKey(key){
+	let labelValue = key.replace(/_/g, ' ').replace(/^./, str => str.toUpperCase()) // replace snake case with spaces
+	let labelValueArr = labelValue.split('');
+	let labelReturn = '';
+
+	labelValueArr.forEach((value, index) => {
+
+		// check if we are at a capital letter
+		// don't add space if the first letter of the first word
+		if(/[A-Z]/.test(value) && index !== 0){
+
+			// * check next char for another capital letter
+			// * if next letter is not a capital letter then add space before adding letter
+			//   because it's a new word 
+			const nextChar = labelValue[index+1];
+			if(nextChar && !/[A-Z]/.test(nextChar)){
+				labelReturn += ` `;
+			}
+		}
+
+		// add the current char always
+		labelReturn += value;
+	});
+
+	// clean up - replace any multiple spaces with single spaces and trim
+	labelValue.replace(/ {2,}/g, ' ').trim();
+    return labelReturn;
 }

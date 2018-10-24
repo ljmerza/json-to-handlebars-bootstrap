@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+		
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="jumbotron jumbotron-fluid">
+						<h1 class='text-center'>JSON to Bootstrap Table Converter</h1>
+					</div>
+
+					<form id='jsonForm'>
+						<div class="form-group">
+							<label for="json-input">Paste Valid JSON Here (double quotes on key and value)</label>
+							<textarea class="form-control" id="json-input" rows="20"></textarea>
+						</div>
+
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label for="column-length">Column Length (col-md-x)</label>
+									<input type="text" class="form-control" id="column-length" value=3>
+								</div>
+								<div class="col">
+									<label for="object-path">Object Path (handlebars path ie model.team. -> {{model.team.x}})</label>
+									<input type="text" class="form-control" id="object-path">
+								</div>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-primary float-right">Submit</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="alert alert-danger d-none" id='error-message'role="alert"></div>
+
+			<div class="row d-none" id='json-form-result'>
+				<div class="col-md-12">
+					<form>
+						<div class="form-group">
+							<label for="exampleFormControlTextarea1">Bootstrap Table</label>
+							<textarea class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script src='./index.js'></script>
+	</body>
+</html>

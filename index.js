@@ -115,30 +115,15 @@ ${bootstrapRowEnd}
  * @return {String} 
  */
 function _convertKey(key){
-	let labelValue = key.replace(/_/g, ' ').replace(/^./, str => str.toUpperCase()) // replace snake case with spaces
-	let labelValueArr = labelValue.split('');
-	let labelReturn = '';
+	key = key.replace(/_/g, ' ').replace(/^./, str => str.toUpperCase()) // replace snake case with spaces
+	key = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
+  	key = key.charAt(0).toUpperCase() + key.slice(1); // make sure the first letter is capitalized
 
-	labelValueArr.forEach((value, index) => {
+  	// double check - make sure each word is capitalized
+  	key = key.split(' ')
+	    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+	    .join(' ');
 
-		// check if we are at a capital letter
-		// don't add space if the first letter of the first word
-		if(/[A-Z]/.test(value) && index !== 0){
-
-			// * check next char for another capital letter
-			// * if next letter is not a capital letter then add space before adding letter
-			//   because it's a new word 
-			const nextChar = labelValue[index+1];
-			if(nextChar && !/[A-Z]/.test(nextChar)){
-				labelReturn += ` `;
-			}
-		}
-
-		// add the current char always
-		labelReturn += value;
-	});
-
-	// clean up - replace any multiple spaces with single spaces and trim
-	labelValue.replace(/ {2,}/g, ' ').trim();
-    return labelReturn;
+	 // get rid of any extra spaces
+  	return key.replace(/ {2,}/g, ' ').trim();
 }
